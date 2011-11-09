@@ -1,0 +1,78 @@
+    <div id="get-started">
+      <p>Celebrate this Diwali with Fireworks on Facebook!</p>
+      <div class="demo">
+        <%= form_for(:get_friend_and_cracker, :url => {:action => "get_friend_and_cracker"}, :remote => true, :html => {:id => "form1aaa"}) do |f| %>
+          <label>Select a Friend: </label>
+          <input id="project" name="name"/>
+          <input type="hidden" id="project-id" name="userid" />
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <label>Select a Firecracker: </label>
+          <select id="cracker" name="cracker" style="background-color: #EEEEEE;">
+          <%= options_for_select(@crackers) %>
+          </select>
+          <br/><br/>
+          <div id="sub">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <%= f.submit "Throw Firecracker on your friend's Wall", :class => "button-sub" %>
+          </div>
+        <% end %>
+      </div>
+      <br/>
+    </div>
+
+    <div id="samples" class="clearfix">
+      <div id="primary_link" align="center">
+      <%= link_to "Wish a RANDOM Friend", {:action => "get_friend_and_cracker"}, :class => "button", :id => "wall_post", :remote => true %>
+      </div>
+      <div id="spinner" align="center">
+        <%= image_tag "/images/loading.gif", :title => "Loading...", :alt => "Loading..." %>
+      </div>
+      <br/>
+      <h1>Wishing you a very Happy Diwali!</h1>
+    </div>
+
+<script type="text/javascript" src="http://connect.facebook.net/en_US/all.js"></script>
+
+<script type="text/javascript">
+  $('#spinner')
+    .hide()  // hide it initially
+    .ajaxStart(function() {
+        $(this).show();
+        $("#primary_link").hide();
+        $("#sub").hide();
+    })
+    .ajaxStop(function() {
+        $(this).hide();
+        $("#primary_link").show();
+        $("#sub").show();
+    });
+</script>
+<% if !session[:fb_user_id].blank? %>
+<script type="text/javascript">
+	$(function() {
+		var projects = <%= raw generate_data_set_values(@friends) %>;
+
+		$( "#project" ).autocomplete({
+			minLength: 0,
+			source: projects,
+			focus: function( event, ui ) {
+				$( "#project" ).val( ui.item.label );
+				return false;
+			},
+			select: function( event, ui ) {
+				$( "#project" ).val( ui.item.label );
+				$( "#project-id" ).val( ui.item.value );
+				
+				return false;
+			}
+		})
+		.data( "autocomplete" )._renderItem = function( ul, item ) {
+			return $( "<li></li>" )
+				.data( "item.autocomplete", item )
+				.append( "<a>" + item.label + "</a>" )
+				.appendTo( ul );
+		};
+	});
+	</script>
+
+ <% end %>

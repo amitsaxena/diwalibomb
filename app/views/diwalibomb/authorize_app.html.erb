@@ -1,0 +1,9 @@
+<% if flash[:error] %>
+  <span class="form-msg-error" id="error-message"><%= flash[:error] %></span>
+<% end %>
+
+
+  <section id="get-started">
+      <p>Celebrate this Diwali with Fireworks on Facebook!</p>
+      <%= link_to "Authorize the application to throw a firecracker on your friend's wall!", session[:oauth].url_for_oauth_code(:permissions => "publish_stream"), :class => "button" %>
+  </section>

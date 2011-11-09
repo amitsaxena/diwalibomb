@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Diwali</title>
+  <%= stylesheet_link_tag "screen.css"  %>
+    <%= javascript_include_tag "jquery-1.5.2.min.js" %>
+    <%= javascript_include_tag "application.js", "jquery.rails.js" %>
+  <%= csrf_meta_tag %>
+  <%= render :partial => "layouts/google_analytics" %>
+</head>
+<body>
+
+<%= yield %>
+
+</body>
+</html>

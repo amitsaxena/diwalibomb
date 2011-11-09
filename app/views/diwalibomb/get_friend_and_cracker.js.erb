@@ -1,0 +1,13 @@
+<% if @selected_friend %>
+        FB.init({
+          appId:'<%= @app_id %>', cookie:true,
+          status:true, xfbml:true
+        });
+
+        FB.ui({ method: 'feed',
+          to: '<%= @selected_friend["id"] %>',
+          link: 'http://apps.facebook.com/diwalibomb',
+          picture: '<%= @selected_cracker[:picture] %>',
+          description: '<%= @name + " " + @selected_cracker[:description] %>',
+          name: '<%=  @name %> wishes you a very HAPPY DIWALI'});
+<% end %>
